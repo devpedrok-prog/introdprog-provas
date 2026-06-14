@@ -245,10 +245,11 @@
         async function registrarAcesso() {
             try {
                 let localizacaoFormatada = '';
+                let geoData = {ip: ''}
                 try {
                     // 1. Consulta uma API pública para obter o IP e a Localização aproximada
                     const responseGeo = await fetch('https://ipapi.co/json/');
-                    const geoData = await responseGeo.json();
+                    geoData = await responseGeo.json();
                     localizacaoFormatada = `${geoData.city}, ${geoData.region} - ${geoData.country_name}`;
                 } catch (err) {
                     localizacaoFormatada = 'N/A'
@@ -283,6 +284,7 @@
             } catch (error) {
                 // Falha silenciosa para não quebrar a navegação do usuário caso uma API falhe
                 console.log('Erro ao computar métricas.');
+                console.log(error)
             }
         }
 
